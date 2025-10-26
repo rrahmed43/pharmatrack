@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "158989854223",
+    "project_id": "pharmatrack-daba2",
+    "storage_bucket": "pharmatrack-daba2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:158989854223:android:08e6dc023fe31a2e44a57a",
+        "android_client_info": {
+          "package_name": "pharma.track"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAN_wFx8v-jOnabpm9wx5V4S5RDCB0mGr0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
