@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:task/home/presentation/view/widgets/add_medicine_dialog.dart';
-import 'package:task/home/presentation/view/widgets/add_restock_dialog.dart';
 import 'package:task/home/presentation/view/widgets/dynamic_form_widget.dart';
 import 'package:task/home/presentation/view/widgets/medicine_card.dart';
 import 'package:task/home/presentation/view/widgets/portal_card.dart';

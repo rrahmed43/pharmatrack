@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
+
 class PortalCard extends StatelessWidget {
-  Color color;
-  Widget? inkWellWidget;
-  bool isEmpty = true;
-  String? message;
-  String? subMessage;
-  Widget? cardChild;
-  PortalCard({
+  final Color color;
+  final Widget? inkWellWidget;
+  final bool isEmpty ;
+  final String? message;
+  final String? subMessage;
+  final Widget? cardChild;
+  const PortalCard({
     super.key,
     required this.isEmpty,
      this.inkWellWidget,
