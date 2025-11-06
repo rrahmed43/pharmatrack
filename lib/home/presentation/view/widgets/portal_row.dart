@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:task/home/presentation/view/widgets/portal_cards.dart';
+import 'package:task/home/presentation/view/widgets/add_medicine_dialog.dart';
+import 'package:task/home/presentation/view/widgets/add_restock_dialog.dart';
+import 'package:task/home/presentation/view/widgets/dynamic_form_widget.dart';
+import 'package:task/home/presentation/view/widgets/medicine_card.dart';
+import 'package:task/home/presentation/view/widgets/portal_card.dart';
 
 class PortalRow extends StatefulWidget {
   const PortalRow({super.key});
@@ -14,25 +18,21 @@ class _PortalRowState extends State<PortalRow> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-         Text(
-            "Your portal",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-          ),
+        Text(
+          "Portal",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
-              child: PortalCards(
-                color: Colors.pink,
-                // title: "Your medicines",
-                message: "Medicine list",
-                subMessage: "Add your Medicine list now",
-              ),
+              child: SavedMedicineDetailsPage()
             ),
             Expanded(
-              child: PortalCards(
+              child: PortalCard(
+                isEmpty: true,
                 color: Colors.green,
-                // title: "Restock",
+                inkWellWidget: DynamicFormWidget(),
                 message: "Restock List",
                 subMessage: "Add your restock list now",
               ),

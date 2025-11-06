@@ -18,21 +18,15 @@ class MedicineCategoriesRow extends StatelessWidget {
         SizedBox(height: 4),
         BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
-            if (state is HomeLoading) {
+            if (state.categoriesState == HomeStatus.loading) {
               return const Center(child: CircularProgressIndicator());
             }
-    
-            if (state is HomeError) {
-              return Center(child: Text(state.message));
-            }
-    
-            if (state is HomeLoaded) {
+            if (state.categoriesState == HomeStatus.success) {
               final categories = state.categories;
-    
+
               if (categories.isEmpty) {
                 return const Center(child: Text('No categories found'));
               }
-    
               return SizedBox(
                 height: 150, // Height for the circles
                 child: ListView.separated(
@@ -43,7 +37,6 @@ class MedicineCategoriesRow extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return Column(
                       children: [
-                        // Circle Shape
                         Container(
                           width: 60,
                           height: 60,
@@ -63,7 +56,6 @@ class MedicineCategoriesRow extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 5),
-                        // Name under circle
                         Text(
                           categories[index].mainCategoryName,
                           style: const TextStyle(fontSize: 13),
@@ -74,9 +66,9 @@ class MedicineCategoriesRow extends StatelessWidget {
                   },
                 ),
               );
+            } else {
+              return const Text('Error loading data');
             }
-    
-            return const SizedBox.shrink();
           },
         ),
       ],
