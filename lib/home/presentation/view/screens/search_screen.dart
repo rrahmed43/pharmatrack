@@ -4,14 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task/home/presentation/view_model/home_bloc.dart';
 import 'package:task/home/presentation/view_model/home_state.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class SearchScreen extends StatefulWidget {
+  const SearchScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<SearchScreen> createState() => _SearchScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _controller = TextEditingController();
   Timer? _debounce;
   List<dynamic> filteredList = [];
@@ -21,7 +21,10 @@ class _HomeScreenState extends State<HomeScreen> {
     _debounce = Timer(const Duration(milliseconds: 2000), () {
       final categories = context.read<HomeBloc>().allCategories;
       filteredList = categories
-          .where((cat) => cat.categoryName.toLowerCase().contains(query.toLowerCase()))
+          .where(
+            (cat) =>
+                cat.categoryName.toLowerCase().contains(query.toLowerCase()),
+          )
           .toList();
       setState(() {}); // Update UI
     });
@@ -53,24 +56,23 @@ class _HomeScreenState extends State<HomeScreen> {
               controller: _controller,
               hintText: 'Search',
               leading: const Icon(Icons.search),
-            onChanged: _onSearchChanged,
+              onChanged: _onSearchChanged,
             ),
-           
+
             Expanded(
               child: BlocBuilder<HomeBloc, HomeState>(
                 builder: (context, state) {
-                  if (state is HomeLoading) {
+                  if (state.categoriesState == HomeStatus.loading) {
                     return const Center(child: CircularProgressIndicator());
-                  } else if (state is HomeError) {
-                    return Center(child: Text(state.message));
-                  } else if (state is HomeLoaded) {
-                    final displayList =
-                        _controller.text.isEmpty ? state.categories : filteredList;
-              
+                  } else if (state.categoriesState == HomeStatus.success) {
+                    final displayList = _controller.text.isEmpty
+                        ? state.categories
+                        : filteredList;
+
                     if (displayList.isEmpty) {
                       return const Center(child: Text('No categories found'));
                     }
-              
+
                     return ListView.separated(
                       itemCount: displayList.length,
                       separatorBuilder: (_, __) => const Divider(height: 1),
@@ -80,8 +82,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         );
                       },
                     );
+                  } else {
+                    return const Text('Error loading data');
                   }
-                  return const SizedBox.shrink();
                 },
               ),
             ),

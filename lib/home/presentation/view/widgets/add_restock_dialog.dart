@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AddMedicineDialog extends StatelessWidget {
-  const AddMedicineDialog({super.key});
+class AddRestockDialog extends StatelessWidget {
+  const AddRestockDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -9,14 +9,14 @@ class AddMedicineDialog extends StatelessWidget {
       // final DateTime? date =
       await showDatePicker(
         context: context,
-        initialDate: DateTime.now(), // default selected date
-        firstDate: DateTime(2000), // earliest allowed date
-        lastDate: DateTime(2100), // latest allowed date
+        initialDate: DateTime.now(), 
+        firstDate: DateTime(2000), 
+        lastDate: DateTime(2100), 
       );
     }
 
     return AlertDialog(
-      title: Text("Restock medicine"),
+      title: Text("Add medicine "),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -38,19 +38,17 @@ class AddMedicineDialog extends StatelessWidget {
                     ),
                     keyboardType: TextInputType.text,
                   ),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      labelText: 'Quantity',
+                      isDense: true,
+                    ),
+                  ),
                   const SizedBox(height: 20),
-                  Row(
-                    children: [
-                      ElevatedButton(
-                        onPressed: pickDate,
-                        child: const Text('Start date'),
-                      ),
-                      const SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed: pickDate,
-                        child: const Text('End date'),
-                      ),
-                    ],
+                  ElevatedButton(
+                    onPressed: pickDate,
+                    child: Text("Restock date"),
                   ),
                 ],
               ),

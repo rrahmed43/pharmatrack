@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 
-class PromoCard extends StatelessWidget {
-  final String title;
+class ShopCard extends StatelessWidget {
   final String imagePath;
   final Color backgroundColor;
 
-  const PromoCard({
+  const ShopCard({
     super.key,
-    required this.title,
     required this.imagePath,
     required this.backgroundColor,
   });
@@ -15,7 +13,7 @@ class PromoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 100, // card width
+      width: 100,
       height: 40,
       margin: const EdgeInsets.only(right: 12),
       decoration: BoxDecoration(
@@ -28,12 +26,6 @@ class PromoCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(child: InkWell(child: Image.asset(imagePath, fit: BoxFit.cover,))),
-            // const SizedBox(height: 8),
-            // Text(
-            //   title,
-            //   style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-            //   textAlign: TextAlign.center,
-            // ),
           ],
         ),
       ),
