@@ -11,27 +11,22 @@ class SavedMedicineDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Dispatch event to load saved data when widget is built
+
+    //load saved data when widget is built
     context.read<HomeBloc>().add(const LoadDynamicData());
 
+  //BlocBuilder to re-build when state is changed
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
-        // 🔹 Show loading indicator
         if (state.dynamicDataState == HomeStatus.loading) {
           return const Center(child: CircularProgressIndicator());
         }
-
-        // 🔹 Show error message
         if (state.dynamicDataState == HomeStatus.error) {
           return const Center(child: Text('Failed to load saved data'));
         }
-
-        // 🔹 No data saved
         if (state.dynamicData.isEmpty) {
           return const Center(child: Text("No saved data"));
         }
-
-        // 🔹 Success — show the saved medicine data
         return PortalCard(
           color: Colors.pink,
           isEmpty: false,

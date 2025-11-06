@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class DatePickerDynamic extends StatefulWidget {
   final Function(String type, DateTime? date)? onChanged;
-
   const DatePickerDynamic({super.key, this.onChanged});
 
   @override
@@ -26,7 +25,7 @@ class _DatePickerDynamicState extends State<DatePickerDynamic> {
       setState(() {
         selectedDate = date;
       });
-      widget.onChanged?.call(dropdownValue, selectedDate);
+      widget.onChanged?.call(dropdownValue, selectedDate);//notify the parent that will use this class with the changes (widget. ...)
     }
   }
 

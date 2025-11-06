@@ -14,20 +14,27 @@ class DynamicFormWidget extends StatefulWidget {
 }
 
 class _DynamicFormWidgetState extends State<DynamicFormWidget> {
-  final List<_FormItem> formItems = [];
-  final List<String> choice = ['name', 'dose', 'date', 'note'];
-  String choiceValue = 'name';
-  Map<String, dynamic> savedData = {};
+  //------Lists---------
 
+  //list for saving the users's added widgets 
+  final List<_DynamicWidgetsItem> dynamicWidgetsItems = [];
+  //dropdown choices (widgets choices)
+  final List<String> choice = ['name', 'dose', 'date', 'note'];
+  //chosen value from the drop down
+  String choiceValue = 'name';
+
+
+//-------Functions--------
+  //add default widget (name = text field)
   void addItem() {
     setState(() {
-      formItems.add(_FormItem(type: choiceValue));
+      dynamicWidgetsItems.add(_DynamicWidgetsItem(type: choiceValue));
     });
   }
-
+//save data in mapped value and pass it to bloc's event 
   void submit() {
     Map<String, dynamic> collectedData = {};
-    for (var item in formItems) {
+    for (var item in dynamicWidgetsItems) {
       if (item.type == 'date') {
         collectedData[item.dateType!] = item.dateValue?.toIso8601String();
       } else {
@@ -37,13 +44,16 @@ class _DynamicFormWidgetState extends State<DynamicFormWidget> {
     context.read<HomeBloc>().add(SaveDynamicData(collectedData));
   }
 
+ //----------UI---------------
   @override
   Widget build(BuildContext context) {
+    //bloc listener is used here to navigate back when the status is 'success' , listeners = 'act' when you get specific state 
     return BlocListener<HomeBloc, HomeState>(
       listener: (context, state) {
         if (state.dynamicDataState == HomeStatus.success) {
-          Navigator.of(context).pop(); // ✅ Close dialog on success
-        } else if (state.dynamicDataState == HomeStatus.error) {
+          Navigator.of(context).pop(); // 
+        } 
+        else if (state.dynamicDataState == HomeStatus.error) {
           ScaffoldMessenger.of(
             context,
           ).showSnackBar(const SnackBar(content: Text("Failed to save data")));
@@ -60,7 +70,7 @@ class _DynamicFormWidgetState extends State<DynamicFormWidget> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              ...formItems.map((item) {
+              ...dynamicWidgetsItems.map((item) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Row(
@@ -112,14 +122,14 @@ class _DynamicFormWidgetState extends State<DynamicFormWidget> {
   }
 }
 
-class _FormItem {
+class _DynamicWidgetsItem {
   String type;
   TextEditingController controller;
   String? value;
   String? dateType;
   DateTime? dateValue;
 
-  _FormItem({required this.type})
+  _DynamicWidgetsItem({required this.type})
     : controller = TextEditingController(),
       value = '';
 
